@@ -1,0 +1,48 @@
+React a JS library for building user interfaces
+
+is based on components
+
+React Dom is the interface to the web.
+
+REact manage Context, Props and State, RealDom what user see
+
+React determines how the component tree currently looks like and what it should look like
+
+Re evaluating is not same re rendering.
+
+components re evaluated whenever props state or context changes
+react execute component functions
+changes to the Real dome only made for differences between evaluations
+
+components are regular JS functions which return renderable results typically (JSX)
+
+you can create a Class that extends from Component with a method render() where is defines the to be render output.
+
+by now is most common and modern approach use functional components instead of class-based components.
+
+React Hooks are the tools that allow us work with components, in class-based components we cant use them.
+
+the classes comes from JS not from react.
+
+the props should be accessed by this context keyword because they comes with the Component class that we extends
+in our component class. we can work with both classes and function components
+
+the state will be managed different
+in the class constructor you should declare the state like this.state = {};
+always must to be a variable called state and always should be an JS Object
+and inside it you will declare all the states you want to use
+
+to modify an state you should use a predefined method called setState (included into Components).
+this.setState receive an object with the new state.
+
+you need to call in the constructor to the constructor of the parent class with super();
+
+to work with side-effects in classBased components we should use some methods to manage the lifecycle of 
+a component.
+componentDidMount() -> called once component mounted (was evaluated and rendered)-> UseEffect
+componentDidUpdate() -> called once component updated (was evaluated and rendered) -> UseEffect with dependencies
+componentWillUnmount() -> called before component is unmonted (remove from DOM) -> the cleanUp function on UseEffect
+componentDidCatch() -> called to make ErrorBoundary and is used only in class-based components.
+
+
+

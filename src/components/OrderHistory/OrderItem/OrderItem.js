@@ -1,30 +1,25 @@
 import React from 'react';
+import styles from "../../Products/ProductItem/ProductItem.module.css";
 
 const OrderItem = (props) => {
-        const price = `$${props.price.toFixed(2)}`;
-        const cardtCtx = useContext(CartContext);
-    
-        const addToCartHandler = amount => {
-          cardtCtx.addItem({
-            id: props.id,
-            status: props.status,
-            amount: props.amount,
-            date: props.date
-          });
-        };
-    
-      return (
-        <li className={styles.meal}>
-          <div>
-            <h3>{props.orderId}</h3>
-            <div className={styles.description}>{props.description}</div>
-            <div className={styles.price}>{price}</div>
-          </div>
-          <div>
-            <ProductItemForm onAddToCart={addToCartHandler} id={props.id}/>
-          </div>
-        </li>
-      );
+  const showDetails = () => {
+
+  };
+  const price = `$${props.totalAmount.toFixed(2)}`;
+
+  return (
+    <li className={styles.meal}>
+      <div>
+        <h3>{props.orderId}</h3>
+        <div className={styles.description}>{props.orderStatus}</div>
+        <div className={styles.description}>{props.orderDate}</div>
+        <div className={styles.price}>{price}</div>
+      </div>
+      <div>
+        <button onClick={showDetails} id={props.id}>Details</button>
+      </div>
+    </li>
+  );
 };
 
 export default OrderItem;

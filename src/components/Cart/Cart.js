@@ -14,24 +14,18 @@ const Cart = (props) => {
   };
 
   const createOrder = (order) => {
+    let items= [];  
+    cartCtx.items.forEach(item => {
+      const orderItem = { "prodId": item.id, "quantity": item.amount}
+    });
     const newOrder = {   
      "newOrder" : { 
        "order": {
             "orderStatus": "IN_PROGRESS",
-            "totalAmount": 8.96,
-            "orderDate": "2022-08-20T03:58:51.000+00:00",
-            "personId": 3
+            "totalAmount": cartCtx.totalAmount.toFixed(2),
+            "personId": 3 //TODO: add the proper userID
           },
-        "orderItem": [
-              {
-                  "prodId": 1,
-                  "quantity": 2
-              },
-              {
-                  "prodId": 2,
-                  "quantity": 2
-              }
-          ]
+        "orderItem": items
       }
   };
   var keys = Object.keys(newOrder);

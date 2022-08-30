@@ -13,6 +13,7 @@ const Products = () => {
   const prodList = useCallback( () => {
     fetch('http://localhost:8090/products',{ headers: {
       'Content-Type':'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem('token')
     }, mode :'cors'}).then(response => {
       if(!response.ok){
         throw new Error('There is a problem while reading products data!');
