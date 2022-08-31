@@ -34,7 +34,7 @@ const Cart = (props) => {
    JSONOut = JSONOut + `"${keys[i]}":"${order[keys[i]]}",`;
   }
 JSONOut = JSONOut + "}";
-    fetch('http://localhost:8090/order',{
+    fetch('http://localhost:8098/order',{
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newOrder)

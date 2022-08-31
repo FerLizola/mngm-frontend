@@ -27,14 +27,16 @@ const Login = (props) => {
 
     const inputChangeHandler = (input, value) => {
         setState(prevState => {
+            //console.log(input);
+            value = input.target.value;
             let isValid = true;
-            for (const validator of prevState.loginForm[input].validators) {
-                isValid = isValid && validator(value);
+            for (const validator of prevState.loginForm[input.target.id].validators) {
+                isValid = isValid && validator(input.target.value);
             }
             const updatedForm = {
                 ...prevState.loginForm,
-                [input]: {
-                    ...prevState.loginForm[input],
+                [input.target.id]: {
+                    ...prevState.loginForm[input.target.id],
                     valid: isValid,
                     value: value
                 }
@@ -76,7 +78,7 @@ const Login = (props) => {
             <form
                 onSubmit={e =>
                     props.onLogin(e, {
-                        email: state.loginForm.email.value,
+                        username: state.loginForm.email.value,
                         password: state.loginForm.password.value
                     })
                 }

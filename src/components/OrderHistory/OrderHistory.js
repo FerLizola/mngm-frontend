@@ -10,7 +10,7 @@ const OrderHistory = (props) => {
     const [errorState, setErrorState] = useState(null)
 
     const orderList = useCallback( () => {
-        fetch('http://localhost:8090/orders' + localStorage.getItem('userId'),{ headers: {
+        fetch('http://localhost:8098/orders/' + localStorage.getItem('userId'),{ headers: {
           'Content-Type':'application/json',
           'Authorization' : 'Bearer ' + localStorage.getItem('token')
         }, mode :'cors'})

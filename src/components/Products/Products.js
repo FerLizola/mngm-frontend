@@ -11,10 +11,13 @@ const Products = () => {
   const [errorState, setErrorState] = useState(null)
 
   const prodList = useCallback( () => {
-    fetch('http://localhost:8090/products',{ headers: {
+    fetch('http://localhost:8098/products',{ headers: {
       'Content-Type':'application/json',
-      'Authorization' : 'Bearer ' + localStorage.getItem('token')
-    }, mode :'cors'}).then(response => {
+      'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+      'Access-Control-Allow-Origin' : 'http://localhost:3000',
+      'Access-Control-Request-Method': 'GET',
+      'Access-Control-Request-Headers': 'Content-Type, Authorization'
+    }}).then(response => {
       if(!response.ok){
         throw new Error('There is a problem while reading products data!');
       }
