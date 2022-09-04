@@ -5,6 +5,8 @@ import Cart from "./components/Cart/Cart"
 import CartProvider from "./store/CartProvider";
 import OrderHistory from "./components/OrderHistory/OrderHistory";
 import Login from "./components/Auth/Login";
+import Popup from "./components/UI/Popup";
+import Button from './components/UI/Button';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +15,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [userid, setUserid] = useState(null);
   const [authLoading, setAuthLoading] = useState(false);
+  const [orderCreated, setOrderCreated] = useState(false);
 
   const getUserID = (token, email) => {
     fetch('http://localhost:8098/personId', {
@@ -37,6 +40,8 @@ function App() {
       }
       return res.json();
     }).then(data => { 
+      setUserid(data);
+      localStorage.setItem('userId', data);
       return data; 
     })
       .catch(err => {
@@ -77,10 +82,10 @@ function App() {
         setIsAuth(true);
         setToken(resData.token);
         setAuthLoading(false);
-        const userId = getUserID(resData.token, authData.username);
+        getUserID(resData.token, authData.username);
         //TODO:: get userid
         localStorage.setItem('token', resData.token);
-        localStorage.setItem('userId', userId);
+        //localStorage.setItem('userId', userid);
         const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
           new Date().getTime() + remainingMilliseconds
@@ -105,15 +110,31 @@ function App() {
   const showOrderHistory = () => {
     setShowHistory(!showHistory);
   }
+
+  const showOrderCreated = () => {
+    setOrderCreated(!orderCreated);
+  }
+  
+  const closeOrderCreated = () => {
+    showOrderCreated();
+    showOrderHistory();
+  }
+
   return (
 
     <CartProvider>
       {isAuth && <Fragment>
-        {showModal && <Cart onClose={hideCartHandler} />}
+        {showModal && <Cart onClose={hideCartHandler} onCreateOrder={showOrderCreated} />}
         <Header onShowCart={showCartHandler} onShowHist={showOrderHistory} showHistory={showHistory} />
         <main>
           {!showHistory && <MainPage />}
           {showHistory && <OrderHistory />}
+          {orderCreated && <Popup content={<>
+              <b>Order Created!</b>
+              <p>Order created successfully, check your email for details.</p>
+              <Button onClick={closeOrderCreated} >Ok</Button>
+          </>}
+          handleClose={closeOrderCreated}/>}
         </main>
       </Fragment>
       }

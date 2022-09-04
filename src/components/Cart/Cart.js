@@ -16,30 +16,47 @@ const Cart = (props) => {
   const createOrder = (order) => {
     let items= [];  
     cartCtx.items.forEach(item => {
-      const orderItem = { "prodId": item.id, "quantity": item.amount}
+      const orderItem = { "prodId": item.id, "quantity": item.amount};
+      items.push(orderItem);
     });
     const newOrder = {   
      "newOrder" : { 
        "order": {
             "orderStatus": "IN_PROGRESS",
-            "totalAmount": cartCtx.totalAmount.toFixed(2),
-            "personId": 3 //TODO: add the proper userID
+            "totalAmount": cartCtx.totalAmount,
+            "personId": localStorage.getItem("userId") //TODO: add the proper userID
           },
         "orderItem": items
       }
   };
+
   var keys = Object.keys(newOrder);
   var JSONOut = "{";
   for (let i = 0; i < keys.length; i++) {
    JSONOut = JSONOut + `"${keys[i]}":"${order[keys[i]]}",`;
   }
 JSONOut = JSONOut + "}";
+console.log(JSONOut);
     fetch('http://localhost:8098/order',{
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem('token')
+     },
       body: JSON.stringify(newOrder)
     }).then( response => {
       console.log(response);
+      cartCtx.items.forEach(item => {
+        let totalItems = item.amount;
+        console.log(totalItems);
+        while(totalItems > 0){
+          cartCtx.removeItem(item.id);
+          totalItems = totalItems-1;
+        }
+        
+      });
+      cartCtx.totalAmount = 0;
+      props.onClose();
+      props.onCreateOrder();
       //return response.json();
     });
     

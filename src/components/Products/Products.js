@@ -14,7 +14,7 @@ const Products = () => {
     fetch('http://localhost:8098/products',{ headers: {
       'Content-Type':'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-      'Access-Control-Allow-Origin' : 'http://localhost:3000',
+      'Access-Control-Allow-Origin' : 'http://localhost:3001',
       'Access-Control-Request-Method': 'GET',
       'Access-Control-Request-Headers': 'Content-Type, Authorization'
     }}).then(response => {
