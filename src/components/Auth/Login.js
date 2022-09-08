@@ -84,7 +84,8 @@ const Login = (props) => {
                 }
             >
                 <div className='input'>
-                    <label htmlFor="Your E-Mail" />
+                {props.error && <div className='error'><span>{props.error}</span></div>}
+                    <label htmlFor="email" className='labeltag'>Email</label>
                     <input
                         className={[
                             !state.loginForm['email'].valid ? 'invalid' : 'valid',
@@ -98,7 +99,7 @@ const Login = (props) => {
                     />
                 </div>
                 <div className='input'>
-                    <label htmlFor="Your Password" />
+                    <label htmlFor="password" className='labeltag'>Your Password</label>
                     <input
                         className={[
                             !state.loginForm['password'].valid ? 'invalid' : 'valid',

@@ -49,4 +49,14 @@
     color: white;
     margin: auto;
   }
+
+  .error{
+    color: red;
+    border: 1px;
+    border-color: red;
+}
+
+.labeltag{
+  color:white;
+}
   

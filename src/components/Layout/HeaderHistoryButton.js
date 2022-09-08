@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './HeaderCartButton.module.css';
 
 const HeaderHistoryButton = (props) => {
-    return <button className={styles.button} onClick={props.onClick}>
-        {!props.showHistory && <span>Order History</span>}
-        {props.showHistory && <span>Home</span>}
-    </button>
+    return <Fragment>{!props.showHistory && !props.showDetails &&<button className={styles.button} onClick={props.onClick}>
+             <span>Order History</span>          
+        </button>}
+        {!props.showHistory && props.showDetails &&<button className={styles.button} onClick={props.onClick}>
+             <span>Order History</span>
+          
+        </button>}
+        {props.showHistory &&<button className={styles.button} onClick={props.onHideHistory}>
+             <span>Home</span>
+        </button>}
+    </Fragment>
 };
 
 export default HeaderHistoryButton;

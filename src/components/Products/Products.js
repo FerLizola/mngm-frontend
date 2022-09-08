@@ -14,7 +14,6 @@ const Products = () => {
     fetch('http://localhost:8098/products',{ headers: {
       'Content-Type':'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-      'Access-Control-Allow-Origin' : 'http://localhost:3001',
       'Access-Control-Request-Method': 'GET',
       'Access-Control-Request-Headers': 'Content-Type, Authorization'
     }}).then(response => {
@@ -37,7 +36,7 @@ const Products = () => {
 
   //console.log(prodList());
   //{errorState && <p>{error}</p>}
-  const mealList = products.map((prod) => {
+  const prodListarray = products.map((prod) => {
     return (
       <ProductItem
       id={prod.prodID}
@@ -51,7 +50,7 @@ const Products = () => {
   return (
     <section className={styles.meals}>
       <Card>
-        <ul>{mealList}</ul>
+        <ul>{prodListarray}</ul>
       </Card>
     </section>
   );
